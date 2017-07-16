@@ -69,6 +69,14 @@
 
     textArea.select();
 
+    try {
+      const successful = document.execCommand('copy');
+      const msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+
     document.body.removeChild(textArea);
   }
 
@@ -120,8 +128,7 @@
 
   function getQuote() {
     const theme = pickRandomSample(Object.getOwnPropertyNames(themes));
-    fetch(`//www.forbes.com/forbesapi/thought/get.json?limit=1&start=${randomUpTo(themes[theme])}&themeuri=${theme}`)
-    // fetch('quote.json')
+    fetch(`http://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=${randomUpTo(themes[theme])}&themeuri=${theme}`)
       .then((response) => {
         if (response.status >= 400) {
           throw new Error('Bad response from server');
@@ -135,28 +142,33 @@
         const quoteContainer = document.getElementById('quote');
         const authorContainer = document.getElementById('author');
         const themeContainer = document.getElementById('theme');
+        const copyButton = document.getElementById('copy');
 
         quoteContainer.style.opacity = 0;
         authorContainer.style.opacity = 0;
+        authorContainer.classList.remove('show');
         themeContainer.style.opacity = 0;
+        copyButton.classList.remove('show')
+
 
         window.setTimeout(() => {
           quoteContainer.innerHTML = `<span class="icon">
             <i class="fa fa-quote-left"></i>
-          </span>${text}<span class="icon">
-            <i class="fa fa-quote-right"></i>
-          </span>`;
+          </span>${text}`;
           authorContainer.innerText = author;
           themeContainer.innerText = theme;
 
           quoteContainer.style.opacity = 1;
           authorContainer.style.opacity = 1;
           themeContainer.style.opacity = 1;
+          authorContainer.classList.add('show');
+          copyButton.classList.add('show')
         }, animationTime);
-
       });
   }
 
   document.getElementById('quote-button')
     .addEventListener('click', getQuote);
+
+  getQuote();
 }());

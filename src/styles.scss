@@ -3,7 +3,6 @@
 /* Initial values */
 $family-sans-serif: 'Arimo' #{$family-sans-serif};
 $body-size: 20px;
-$animation-time: 600ms;
 
 @import "../node_modules/bulma/bulma";
 /* Modal */
@@ -11,6 +10,7 @@ $animation-time: 600ms;
 .modal-card {
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
+  transition: height 1s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 /* Background */
@@ -22,7 +22,7 @@ body {
 .modal-background {
   opacity: 0.8;
   background: linear-gradient($primary, $primary-invert);
-  transition: opacity $animation-time cubic-bezier(0.46, 0.03, 0.52, 0.96);
+  transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 /* Media icons */
@@ -41,13 +41,14 @@ body {
 
 /* Quotes */
 #quote {
-  padding-right: 40px;
+  padding-right: 60px;
+  text-align: justify
 }
 #theme,
 #quote,
 #author {
   opacity: 1;
-  transition: opacity $animation-time cubic-bezier(0.46, 0.03, 0.52, 0.96);
+  transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 #quote .icon .fa {
@@ -85,11 +86,12 @@ body {
   border: solid $grey-lighter;
   border-width: 0 0 1px 1px;
   color: $grey;
-  cursor: pointer;
   outline: none;
   position: absolute;
   right: 0;
   top: 0;
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 #copy:focus {
@@ -103,8 +105,18 @@ body {
 }
 
 /* Author */
-#author:before {
-  content: '— ';
+#author {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
+}
+
+#author::before {
+  content: '– ';
+}
+
+/* Helpers */
+.show {
+  opacity: 1!important;
 }
 
 /* Media Queries */
