@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Random Quote Machine</title>
+  <link href="https://fonts.googleapis.com/css?family=Arimo:400" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>
+    var $buoop = {
+      vs: { i: 12, f: -4, o: -4, s: 8, c: -4 }, api: 4, reminder: 0
+    };
+    function $buo_f() {
+      // Fix for IE
+      document.getElementsByClassName('modal-card')[0].style.marginRight = 0;
+      document.getElementsByClassName('modal-card')[0].style.marginLeft = 0;
+      // End fix
+      var e = document.createElement('script');
+      e.src = 'https://browser-update.org/update.min.js';
+      document.body.appendChild(e);
+    }
+    try {
+      document.addEventListener('DOMContentLoaded', $buo_f, false);
+    }
+    catch (e) {
+      window.attachEvent('onload', $buo_f);
+    }
+  </script>
+</head>
+<body>
+<main class="content">
+  <div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Quote on <span id="theme">Design</span></p>
+      </header>
+      <section class="modal-card-body">
+        <a id="copy" title="Copy" class="button is-small" tabindex="2">Copy</a>
+        <p id="quote">
+          <span class="icon">
+            <i class="fa fa-quote-left"></i>
+          </span>
+          Find the simple story in the product, and present it in an articulate and intelligent, persuasive way.
+          <span class="icon">
+            <i class="fa fa-quote-right"></i>
+          </span>
+        </p>
+        <small id="author">Bill Bernbach</small>
+      </section>
+      <footer class="modal-card-foot">
+        <div class="field"><a id="email" class="button is-info is-outlined" title="Email" tabindex="5">
+            <span class="icon">
+              <i class="fa fa-envelope"></i>
+              <span></span>
+            </span>
+        </a><a id="twitter" class="button is-info is-outlined" title="Twitter" tabindex="4">
+            <span class="icon">
+              <i class="fa fa-twitter"></i>
+              <span></span>
+            </span>
+        </a><a id="facebook" class="button is-info is-outlined" title="Facebook" tabindex="3">
+            <span class="icon">
+              <i class="fa fa-facebook"></i>
+              <span></span>
+            </span>
+        </a>
+        </div>
+
+        <a class="button is-info" id="quote-button" title="Random Quote" tabindex="1">Random Quote</a>
+
+      </footer>
+    </div>
+  </div>
+</main>
+<script src="js/scripts.js"></script>
+</body>
+</html>
