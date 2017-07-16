@@ -72,6 +72,14 @@
 
     textArea.select();
 
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+
     document.body.removeChild(textArea);
   }
 
@@ -120,9 +128,7 @@
 
   function getQuote() {
     var theme = pickRandomSample(Object.getOwnPropertyNames(themes));
-    fetch('//www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(themes[theme]) + '&themeuri=' + theme)
-    // fetch('quote.json')
-    .then(function (response) {
+    fetch('http://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(themes[theme]) + '&themeuri=' + theme).then(function (response) {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
@@ -134,22 +140,29 @@
       var quoteContainer = document.getElementById('quote');
       var authorContainer = document.getElementById('author');
       var themeContainer = document.getElementById('theme');
+      var copyButton = document.getElementById('copy');
 
       quoteContainer.style.opacity = 0;
       authorContainer.style.opacity = 0;
+      authorContainer.classList.remove('show');
       themeContainer.style.opacity = 0;
+      copyButton.classList.remove('show');
 
       window.setTimeout(function () {
-        quoteContainer.innerHTML = '<span class="icon">\n            <i class="fa fa-quote-left"></i>\n          </span>' + text + '<span class="icon">\n            <i class="fa fa-quote-right"></i>\n          </span>';
+        quoteContainer.innerHTML = '<span class="icon">\n            <i class="fa fa-quote-left"></i>\n          </span>' + text;
         authorContainer.innerText = author;
         themeContainer.innerText = theme;
 
         quoteContainer.style.opacity = 1;
         authorContainer.style.opacity = 1;
         themeContainer.style.opacity = 1;
+        authorContainer.classList.add('show');
+        copyButton.classList.add('show');
       }, animationTime);
     });
   }
 
   document.getElementById('quote-button').addEventListener('click', getQuote);
+
+  getQuote();
 })();
