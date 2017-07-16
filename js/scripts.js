@@ -128,7 +128,7 @@
 
   function getQuote() {
     var theme = pickRandomSample(Object.getOwnPropertyNames(themes));
-    fetch('http://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(themes[theme]) + '&themeuri=' + theme).then(function (response) {
+    fetch('https://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(themes[theme]) + '&themeuri=' + theme).then(function (response) {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
