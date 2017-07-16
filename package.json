@@ -1,0 +1,39 @@
+{
+  "name": "randomquotemachine",
+  "version": "0.0.1",
+  "description": "Get random quote from website, and allow user to save it on twitter.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anton Zdanov",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.1.2",
+    "babel-core": "^6.25.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "browser-sync": "^2.18.12",
+    "bulma": "^0.4.3",
+    "cssnano": "^3.10.0",
+    "es6-promise": "^4.1.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-csso": "^3.0.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-purifycss": "^0.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uncss": "^1.0.6",
+    "isomorphic-fetch": "^2.2.1",
+    "postcss": "^6.0.6",
+    "postcss-uncss": "^0.15.0",
+    "stylefmt": "^6.0.0",
+    "uncss": "^0.15.0"
+  },
+  "dependencies": {}
+}
