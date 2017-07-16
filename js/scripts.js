@@ -1,7 +1,7 @@
 'use strict';
 
 (function initialize() {
-  //Options
+  // Options
   var animationTime = 600;
 
   // Remove focus from buttons on click
@@ -102,28 +102,27 @@
   }
 
   var themes = {
-    'self': 144,
-    'best': 12,
-    'emotions': 17,
-    'life': 207,
-    'justice': 41,
-    'wealth': 154,
-    'laughter': 31,
-    'anger': 65,
-    'art': 108,
-    'executives': 16,
-    'power': 78,
-    'education': 146,
-    'wisdom': 108,
-    'greatness': 63
+    self: 144,
+    best: 12,
+    emotions: 17,
+    life: 207,
+    justice: 41,
+    wealth: 154,
+    laughter: 31,
+    anger: 65,
+    art: 108,
+    executives: 16,
+    power: 78,
+    education: 146,
+    wisdom: 108,
+    greatness: 63
   };
 
   function getQuote() {
-    var headers = new Headers();
-
     var theme = pickRandomSample(Object.getOwnPropertyNames(themes));
-    //fetch(`https//www.forbes.com/forbesapi/thought/get.json?limit=1&start=${randomUpTo(themes[theme])}&themeuri=${theme}`)
-    fetch('quote.json').then(function (response) {
+    fetch('//www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(themes[theme]) + '&themeuri=' + theme)
+    // fetch('quote.json')
+    .then(function (response) {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
