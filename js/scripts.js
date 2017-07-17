@@ -112,6 +112,7 @@
     if (keyIsNotEnter()) {
       return;
     }
+    quoteButton.classList.add('is-loading');
     var theme = pickRandomSample(Object.getOwnPropertyNames(quoteThemes));
     fetch('https://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(quoteThemes[theme]) + '&themeuri=' + theme).then(function (response) {
       if (response.status >= 400) {
@@ -125,7 +126,7 @@
 
       var quoteContainer = document.getElementById('quote');
       var authorContainer = document.getElementById('author');
-      var themeContainer = document.getElementById('quoteTheme');
+      var themeContainer = document.getElementById('quote-theme');
 
       quoteContainer.classList.remove('show');
       authorContainer.classList.remove('show');
@@ -142,11 +143,11 @@
         themeContainer.classList.add('show');
         authorContainer.classList.add('show');
         copyButton.classList.add('show');
+
+        quoteButton.classList.remove('is-loading');
       }, animationTime);
     });
   }
-
-  getQuote();
 
   // Event Listeners
   fetch('https://cdn.rawgit.com/ghosh/uiGradients/master/gradients.json').then(function (response) {
@@ -156,12 +157,6 @@
     return response.json();
   }).then(function (gradients) {
     quoteButton.addEventListener('changeBackground', changeBackground.bind(null, gradients));
-  });
-
-  buttons.forEach(function (button) {
-    return button.addEventListener('click', function () {
-      return event.currentTarget.blur();
-    });
   });
 
   function sendToFacebook() {
@@ -194,6 +189,12 @@
   }
 
   buttons.forEach(function (button) {
+    return button.addEventListener('click', function () {
+      return event.currentTarget.blur();
+    });
+  });
+
+  buttons.forEach(function (button) {
     switch (button.id) {
       case 'facebook':
         button.addEventListener('mousedown', sendToFacebook);
@@ -218,9 +219,11 @@
   copyButton.addEventListener('mouseleave', function () {
     event.currentTarget.parentElement.classList.remove('focus');
   });
-  copyButton.addEventListener('mousedown', copyQuote);
+  copyButton.addEventListener('click', copyQuote);
   copyButton.addEventListener('keydown', copyQuote);
 
-  quoteButton.addEventListener('mousedown', getQuote);
+  quoteButton.addEventListener('click', getQuote);
   quoteButton.addEventListener('keydown', getQuote);
+
+  getQuote();
 })();

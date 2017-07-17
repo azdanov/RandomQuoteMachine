@@ -110,6 +110,7 @@
     if (keyIsNotEnter()) {
       return;
     }
+    quoteButton.classList.add('is-loading');
     const theme = pickRandomSample(Object.getOwnPropertyNames(quoteThemes));
     fetch(`https://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=${randomUpTo(quoteThemes[theme])}&themeuri=${theme}`)
       .then((response) => {
@@ -125,7 +126,7 @@
 
         const quoteContainer = document.getElementById('quote');
         const authorContainer = document.getElementById('author');
-        const themeContainer = document.getElementById('quoteTheme');
+        const themeContainer = document.getElementById('quote-theme');
 
         quoteContainer.classList.remove('show');
         authorContainer.classList.remove('show');
@@ -142,12 +143,12 @@
           themeContainer.classList.add('show');
           authorContainer.classList.add('show');
           copyButton.classList.add('show');
+
+          quoteButton.classList.remove('is-loading');
         }, animationTime);
       })
     ;
   }
-
-  getQuote();
 
   // Event Listeners
   fetch('https://cdn.rawgit.com/ghosh/uiGradients/master/gradients.json')
@@ -161,8 +162,6 @@
       quoteButton.addEventListener('changeBackground', changeBackground.bind(null, gradients));
     })
   ;
-
-  buttons.forEach(button => button.addEventListener('click', () => event.currentTarget.blur()));
 
   function sendToFacebook() {
     if (keyIsNotEnter()) {
@@ -193,6 +192,8 @@
     window.open(`mailto:?subject=Quote&body=${encodeURI(extractQuote())}`);
   }
 
+  buttons.forEach(button => button.addEventListener('click', () => event.currentTarget.blur()));
+
   buttons.forEach((button) => {
     switch (button.id) {
       case 'facebook':
@@ -218,9 +219,11 @@
   copyButton.addEventListener('mouseleave', () => {
     event.currentTarget.parentElement.classList.remove('focus');
   });
-  copyButton.addEventListener('mousedown', copyQuote);
+  copyButton.addEventListener('click', copyQuote);
   copyButton.addEventListener('keydown', copyQuote);
 
-  quoteButton.addEventListener('mousedown', getQuote);
+  quoteButton.addEventListener('click', getQuote);
   quoteButton.addEventListener('keydown', getQuote);
+
+  getQuote();
 }());

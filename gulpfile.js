@@ -5,15 +5,12 @@ const autoprefixer = require('autoprefixer');
 const stylefmt = require('stylefmt');
 const purify = require('gulp-purifycss');
 const browserSync = require('browser-sync').create();
-const cssnano = require('cssnano');
 const babel = require('gulp-babel');
 
-
 // Static Server + watching scss/html files
-gulp.task('serve', ['js', 'sass'], function () {
-
+gulp.task('serve', ['js', 'sass'], () => {
   browserSync.init({
-    server: './'
+    server: './',
   });
 
   gulp.watch('./src/*.js', ['js']);
@@ -25,14 +22,11 @@ gulp.task('serve', ['js', 'sass'], function () {
 gulp.task('sass', () => {
   const plugins = [
     autoprefixer({ browsers: ['defaults'] }),
-    cssnano({
-      discardComments: { removeAll: true }
-    }),
     stylefmt,
   ];
   return gulp.src('src/*.scss')
     .pipe(sass())
-    .pipe(purify(['./js/*.js', './*.html']))
+    .pipe(purify(['./js/scripts.js', 'index.html']))
     .pipe(postcss(plugins))
     .pipe(gulp.dest('css'))
     .pipe(browserSync.stream());
@@ -42,10 +36,10 @@ gulp.task('sass', () => {
 gulp.task('js', () =>
   gulp.src('src/*.js')
     .pipe(babel({
-      presets: ['env']
+      presets: ['env'],
     }))
     .pipe(gulp.dest('js'))
-    .pipe(browserSync.stream())
+    .pipe(browserSync.stream()),
 );
 
 gulp.task('default', ['serve']);

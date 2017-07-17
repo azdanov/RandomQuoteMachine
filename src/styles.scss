@@ -44,7 +44,7 @@ body {
   text-align: center;
 }
 
-#quoteTheme,
+#quote-theme,
 #quote,
 #author {
   opacity: 0;
@@ -59,6 +59,10 @@ body {
 .modal a.button:active {
   transform: translate(0, 1px);
   transition: all 150ms;
+}
+
+#quote-button {
+  transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 /* Quote button */
