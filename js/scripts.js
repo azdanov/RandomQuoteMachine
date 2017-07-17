@@ -1,22 +1,42 @@
 'use strict';
 
 (function initialize() {
-  // Options
   var animationTime = 600;
-
-  // Remove focus from buttons on click
+  var changeBackgroundEvent = new Event('changeBackground');
+  var copyButton = document.getElementById('copy');
+  var quoteButton = document.getElementById('quote-button');
   var buttons = Array.from(document.getElementsByClassName('button'));
-  buttons.forEach(function (button) {
-    return button.addEventListener('click', function () {
-      return event.currentTarget.blur();
-    });
-  });
+  var quoteThemes = {
+    self: 144,
+    best: 12,
+    emotions: 17,
+    life: 207,
+    justice: 41,
+    wealth: 154,
+    laughter: 31,
+    anger: 65,
+    art: 108,
+    executives: 16,
+    power: 78,
+    education: 146,
+    wisdom: 108,
+    greatness: 63
+  };
 
   function randomUpTo(num) {
     return Math.floor(Math.random() * num);
   }
 
-  // Add gradient to background class
+  function pickRandomSample(topics) {
+    var index = Math.floor(Math.random() * topics.length);
+    return topics[index];
+  }
+
+  function extractQuote() {
+    var quoteContainer = document.getElementById('copy').parentElement.children;
+    return '"' + quoteContainer.quote.innerText.trim() + '"\n' + quoteContainer.author.innerText.trim();
+  }
+
   function changeBackground(gradients) {
     var gradient = gradients[randomUpTo(gradients.length)];
     var background = document.getElementsByClassName('modal-background')[0];
@@ -28,20 +48,6 @@
     }, animationTime);
   }
 
-  // Get gradients
-  fetch('https://raw.githubusercontent.com/ghosh/uiGradients/master/gradients.json').then(function (response) {
-    if (response.status >= 400) {
-      throw new Error('Bad response from server');
-    }
-    return response.json();
-  })
-  // Add eventListener
-  .then(function (gradients) {
-    // changeBackground(gradients);
-    document.getElementById('quote-button').addEventListener('click', changeBackground.bind(null, gradients));
-  });
-
-  // Copy button
   function copyTextToClipboard(text) {
     var textArea = document.createElement('textarea');
 
@@ -73,62 +79,41 @@
     textArea.select();
 
     try {
-      var successful = document.execCommand('copy');
-      var msg = successful ? 'successful' : 'unsuccessful';
-      console.log('Copying text command was ' + msg);
+      document.execCommand('copy');
     } catch (err) {
-      console.log('Oops, unable to copy');
+      throw new Error('Oops, unable to copy', err);
     }
 
     document.body.removeChild(textArea);
   }
 
-  var copyButton = document.getElementById('copy');
-  copyButton.addEventListener('mouseenter', function () {
-    event.currentTarget.parentElement.classList.add('focus');
-  });
-  copyButton.addEventListener('mouseleave', function () {
-    event.currentTarget.parentElement.classList.remove('focus');
-  });
-  copyButton.addEventListener('click', function () {
-    var quoteContainer = event.currentTarget.parentElement.children;
-    var quote = '"' + quoteContainer.quote.innerText.trim() + '"\n' + quoteContainer.author.innerText.trim();
-    copyTextToClipboard(quote);
-
-    var buttonText = event.currentTarget.textContent;
-    event.currentTarget.textContent = 'Copied!';
-
-    window.setTimeout(function (button, text) {
-      button.textContent = text;
-    }.bind(null, event.currentTarget, buttonText), 3000);
-  });
-
-  // Quotes
-  function pickRandomSample(topics) {
-    var index = Math.floor(Math.random() * topics.length);
-    return topics[index];
+  function keyIsNotEnter() {
+    return event && event.type === 'keydown' && (event.which !== 13 || event.keyCode !== 13);
   }
 
-  var themes = {
-    self: 144,
-    best: 12,
-    emotions: 17,
-    life: 207,
-    justice: 41,
-    wealth: 154,
-    laughter: 31,
-    anger: 65,
-    art: 108,
-    executives: 16,
-    power: 78,
-    education: 146,
-    wisdom: 108,
-    greatness: 63
-  };
+  function copyQuote() {
+    if (keyIsNotEnter()) {
+      return;
+    }
+
+    copyTextToClipboard(extractQuote());
+
+    var currentTarget = event.currentTarget;
+
+    var buttonText = currentTarget.textContent;
+    currentTarget.textContent = 'Copied!';
+
+    window.setTimeout(function () {
+      currentTarget.textContent = buttonText;
+    }, 3000);
+  }
 
   function getQuote() {
-    var theme = pickRandomSample(Object.getOwnPropertyNames(themes));
-    fetch('https://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(themes[theme]) + '&themeuri=' + theme).then(function (response) {
+    if (keyIsNotEnter()) {
+      return;
+    }
+    var theme = pickRandomSample(Object.getOwnPropertyNames(quoteThemes));
+    fetch('https://cors-anywhere.herokuapp.com/https://www.forbes.com/forbesapi/thought/get.json?limit=1&start=' + randomUpTo(quoteThemes[theme]) + '&themeuri=' + theme).then(function (response) {
       if (response.status >= 400) {
         throw new Error('Bad response from server');
       }
@@ -136,33 +121,106 @@
     }).then(function (quote) {
       var text = quote.thoughtList[0].quote;
       var author = quote.thoughtList[0].thoughtAuthor.name;
-      var theme = quote.thoughtList[0].thoughtThemes[0].name;
+      var quoteTheme = quote.thoughtList[0].thoughtThemes[0].name;
+
       var quoteContainer = document.getElementById('quote');
       var authorContainer = document.getElementById('author');
-      var themeContainer = document.getElementById('theme');
-      var copyButton = document.getElementById('copy');
+      var themeContainer = document.getElementById('quoteTheme');
 
-      quoteContainer.style.opacity = 0;
-      authorContainer.style.opacity = 0;
+      quoteContainer.classList.remove('show');
       authorContainer.classList.remove('show');
-      themeContainer.style.opacity = 0;
+      themeContainer.classList.remove('show');
       copyButton.classList.remove('show');
 
+      quoteButton.dispatchEvent(changeBackgroundEvent);
       window.setTimeout(function () {
-        quoteContainer.innerHTML = '<span class="icon">\n            <i class="fa fa-quote-left"></i>\n          </span>' + text;
+        quoteContainer.innerHTML = '<span class="icon"><i class="fa fa-quote-left"></i></span>' + text;
         authorContainer.innerText = author;
-        themeContainer.innerText = theme;
+        themeContainer.innerText = quoteTheme;
 
-        quoteContainer.style.opacity = 1;
-        authorContainer.style.opacity = 1;
-        themeContainer.style.opacity = 1;
+        quoteContainer.classList.add('show');
+        themeContainer.classList.add('show');
         authorContainer.classList.add('show');
         copyButton.classList.add('show');
       }, animationTime);
     });
   }
 
-  document.getElementById('quote-button').addEventListener('click', getQuote);
-
   getQuote();
+
+  // Event Listeners
+  fetch('https://cdn.rawgit.com/ghosh/uiGradients/master/gradients.json').then(function (response) {
+    if (response.status >= 400) {
+      throw new Error('Bad response from server');
+    }
+    return response.json();
+  }).then(function (gradients) {
+    quoteButton.addEventListener('changeBackground', changeBackground.bind(null, gradients));
+  });
+
+  buttons.forEach(function (button) {
+    return button.addEventListener('click', function () {
+      return event.currentTarget.blur();
+    });
+  });
+
+  function sendToFacebook() {
+    if (keyIsNotEnter()) {
+      return;
+    }
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href) + '&picture=' + encodeURIComponent('https://image.freepik.com/free-icon/conversation-mark-interface-symbol-of-circular-speech-bubble-with-quotes-signs-inside_318-56572.jpg') + '&title=Daily+quotes&quote=Get+your+daily+quote&description=' + encodeURIComponent(extractQuote()));
+  }
+
+  function sendToTweeter() {
+    if (keyIsNotEnter()) {
+      return;
+    }
+    var quote = extractQuote();
+    var url = 'https://twitter.com/intent/tweet?text=';
+    if (quote.length <= 140) {
+      url += quote;
+    } else {
+      url += 'Awesome quotes at ' + window.location.href;
+    }
+    window.open(url);
+    window.open('https://twitter.com/intent/tweet?text=Binge on popular quotes at ' + window.location.href);
+  }
+
+  function sendToEmail() {
+    if (keyIsNotEnter()) {
+      return;
+    }
+    window.open('mailto:?subject=Quote&body=' + encodeURI(extractQuote()));
+  }
+
+  buttons.forEach(function (button) {
+    switch (button.id) {
+      case 'facebook':
+        button.addEventListener('mousedown', sendToFacebook);
+        button.addEventListener('keydown', sendToFacebook);
+        break;
+      case 'twitter':
+        button.addEventListener('mousedown', sendToTweeter);
+        button.addEventListener('keydown', sendToTweeter);
+        break;
+      case 'email':
+        button.addEventListener('mousedown', sendToEmail);
+        button.addEventListener('keydown', sendToEmail);
+        break;
+      default:
+        break;
+    }
+  });
+
+  copyButton.addEventListener('mouseenter', function () {
+    event.currentTarget.parentElement.classList.add('focus');
+  });
+  copyButton.addEventListener('mouseleave', function () {
+    event.currentTarget.parentElement.classList.remove('focus');
+  });
+  copyButton.addEventListener('mousedown', copyQuote);
+  copyButton.addEventListener('keydown', copyQuote);
+
+  quoteButton.addEventListener('mousedown', getQuote);
+  quoteButton.addEventListener('keydown', getQuote);
 })();

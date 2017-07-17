@@ -742,14 +742,58 @@ button.button {
   font-size: 14px;
 }
 
+.image {
+  display: block;
+  position: relative;
+}
+
+.image.is-16x16 {
+  height: 16px;
+  width: 16px;
+}
+
+.image.is-24x24 {
+  height: 24px;
+  width: 24px;
+}
+
+.image.is-32x32 {
+  height: 32px;
+  width: 32px;
+}
+
+.image.is-48x48 {
+  height: 48px;
+  width: 48px;
+}
+
+.image.is-64x64 {
+  height: 64px;
+  width: 64px;
+}
+
+.image.is-96x96 {
+  height: 96px;
+  width: 96px;
+}
+
+.image.is-128x128 {
+  height: 128px;
+  width: 128px;
+}
+
+.subtitle,
 .title {
   word-break: break-word;
 }
 
+.subtitle:not(:last-child),
 .title:not(:last-child) {
   margin-bottom: 1.5rem;
 }
 
+.subtitle em,
+.subtitle span,
 .title,
 .title em,
 .title span {
@@ -783,6 +827,37 @@ button.button {
 }
 
 .title.is-6 {
+  font-size: 1rem;
+}
+
+.subtitle {
+  color: #4a4a4a;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.25;
+}
+
+.subtitle.is-1 {
+  font-size: 3rem;
+}
+
+.subtitle.is-2 {
+  font-size: 2.5rem;
+}
+
+.subtitle.is-3 {
+  font-size: 2rem;
+}
+
+.subtitle.is-4 {
+  font-size: 1.5rem;
+}
+
+.subtitle.is-5 {
+  font-size: 1.25rem;
+}
+
+.subtitle.is-6 {
   font-size: 1rem;
 }
 
@@ -827,6 +902,11 @@ button.button {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.card-image {
+  display: block;
+  position: relative;
 }
 
 .card-content {
@@ -1023,14 +1103,13 @@ body {
 }
 
 #quote {
-  padding-right: 60px;
-  text-align: justify;
+  text-align: center;
 }
 
 #author,
 #quote,
-#theme {
-  opacity: 1;
+#quoteTheme {
+  opacity: 0;
   -webkit-transition: opacity .6s cubic-bezier(.46, .03, .52, .96);
   transition: opacity .6s cubic-bezier(.46, .03, .52, .96);
 }
@@ -1054,8 +1133,21 @@ body {
 .modal-card-body {
   position: relative;
   border: 1px solid transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-transition: border .1s ease-out;
   transition: border .1s ease-out;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
+.modal-card-body::-webkit-scrollbar {
+  display: none;
 }
 
 .focus {
@@ -1068,14 +1160,15 @@ body {
   -ms-user-select: none;
   user-select: none;
   background: #fff;
-  border: solid #dbdbdb;
+  border: solid #f5f5f5;
   border-width: 0 0 1px 1px;
-  color: #7a7a7a;
+  color: #dbdbdb;
   outline: none;
   position: absolute;
   right: 0;
   top: 0;
   opacity: 0;
+  height: 15px;
   -webkit-transition: opacity .6s cubic-bezier(.46, .03, .52, .96);
   transition: opacity .6s cubic-bezier(.46, .03, .52, .96);
 }
@@ -1092,13 +1185,14 @@ body {
 }
 
 #author {
+  text-align: center;
   opacity: 0;
   -webkit-transition: opacity .6s cubic-bezier(.46, .03, .52, .96);
   transition: opacity .6s cubic-bezier(.46, .03, .52, .96);
 }
 
 #author:before {
-  content: "– ";
+  content: "- ";
 }
 
 .show {
@@ -1108,5 +1202,26 @@ body {
 @media screen and (min-width: 412px) {
   .modal-card-foot .field .button {
     margin-right: 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #quote {
+    text-align: justify;
+  }
+
+  #author {
+    text-align: start;
+  }
+
+  #author:before {
+    content: "– ";
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .button.is-info {
+    border-radius: 3px;
+    font-size: 1rem;
   }
 }

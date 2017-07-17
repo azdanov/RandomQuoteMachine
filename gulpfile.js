@@ -45,6 +45,7 @@ gulp.task('js', () =>
       presets: ['env']
     }))
     .pipe(gulp.dest('js'))
+    .pipe(browserSync.stream())
 );
 
 gulp.task('default', ['serve']);

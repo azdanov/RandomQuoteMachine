@@ -12,62 +12,40 @@
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
-  <script>
-    var $buoop = {
-      vs: { i: 12, f: -4, o: -4, s: 8, c: -4 }, api: 4, reminder: 0
-    };
-    function $buo_f() {
-      // Fix for IE
-      document.getElementsByClassName('modal-card')[0].style.marginRight = 0;
-      document.getElementsByClassName('modal-card')[0].style.marginLeft = 0;
-      // End fix
-      var e = document.createElement('script');
-      e.src = 'https://browser-update.org/update.min.js';
-      document.body.appendChild(e);
-    }
-    try {
-      document.addEventListener('DOMContentLoaded', $buo_f, false);
-    }
-    catch (e) {
-      window.attachEvent('onload', $buo_f);
-    }
-  </script>
+  <!-- Ensure browser is up to date -->
+  <script>var $buoop={vs:{i:12,f:-4,o:-4,s:8,c:-4},api:4,reminder:1,onshow:function(infos){document.getElementsByClassName('modal-card')[0].style.marginRight=0;document.getElementsByClassName('modal-card')[0].style.marginLeft=0;}};function $buo_f(){var e=document.createElement('script');e.src='https://browser-update.org/update.min.js';document.body.appendChild(e);} try{document.addEventListener('DOMContentLoaded',$buo_f,false);} catch(e){window.attachEvent('onload',$buo_f);}</script>
 </head>
 <body>
 <main class="content">
   <div class="modal is-active">
     <div class="modal-background"></div>
     <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title"><span id="theme"></span></p>
+      <header class="modal-card-head"><p class="modal-card-title"><span id="quoteTheme"></span></p>
       </header>
       <section class="modal-card-body">
         <a id="copy" title="Copy" class="button is-small" tabindex="2">Copy</a>
-        <p id="quote">
-        </p>
-        <small id="author" class="title is-5"></small>
+        <p id="quote"></p>
+        <small id="author" class="subtitle"></small>
       </section>
       <footer class="modal-card-foot">
-        <div class="field"><a id="email" class="button is-info is-outlined" title="Email" tabindex="5" href="mailto:?subject=your%20subject&amp;body=your%20body">
-            <span class="icon">
-              <i class="fa fa-envelope"></i>
-              <span></span>
-            </span>
-        </a><a id="twitter" class="button is-info is-outlined" title="Twitter" tabindex="4">
-            <span class="icon">
-              <i class="fa fa-twitter"></i>
-              <span></span>
-            </span>
-        </a><a id="facebook" class="button is-info is-outlined" title="Facebook" tabindex="3">
-            <span class="icon">
-              <i class="fa fa-facebook"></i>
-              <span></span>
-            </span>
-        </a>
+        <div class="field"><!--
+         --><a id="email"
+               class="button is-info is-outlined is-small"
+               title="Email"
+               tabindex="5"><span class="icon"><i class="fa fa-envelope"></i><span></span></span></a><!--
+         --><a id="twitter"
+               class="button is-info is-outlined is-small"
+               title="Twitter"
+               tabindex="4"><span class="icon"><i class="fa fa-twitter"></i><span></span></span></a><!--
+         --><a id="facebook"
+               class="button is-info is-outlined is-small"
+               title="Facebook"
+               tabindex="3"><span class="icon"><i class="fa fa-facebook"></i><span></span></span></a>
         </div>
-
-        <a class="button is-info" id="quote-button" title="Random Quote" tabindex="1">Random Quote</a>
-
+        <a class="button is-info is-small"
+           id="quote-button"
+           title="Random Quote"
+           tabindex="1">Random Quote</a>
       </footer>
     </div>
   </div>
