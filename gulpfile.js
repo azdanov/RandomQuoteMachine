@@ -2,11 +2,12 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
-const stylefmt = require('stylefmt');
 const purify = require('gulp-purifycss');
 const browserSync = require('browser-sync').create();
 const babel = require('gulp-babel');
 const csso = require('postcss-csso');
+const babili = require('gulp-babili');
+
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['js', 'sass'], () => {
@@ -24,7 +25,6 @@ gulp.task('sass', () => {
   const plugins = [
     autoprefixer({ browsers: ['defaults'] }),
     csso,
-    stylefmt,
   ];
   return gulp.src('src/*.scss')
     .pipe(sass())
@@ -39,6 +39,11 @@ gulp.task('js', () =>
   gulp.src('src/*.js')
     .pipe(babel({
       presets: ['env'],
+    }))
+    .pipe(babili({
+      mangle: {
+        keepClassName: true,
+      },
     }))
     .pipe(gulp.dest('js'))
     .pipe(browserSync.stream()));
