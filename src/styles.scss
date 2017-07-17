@@ -1,9 +1,9 @@
-@import "../node_modules/bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/initial-variables";
 
 /* Initial values */
 $body-size: 20px;
 
-@import "../node_modules/bulma/bulma";
+@import "~bulma/bulma";
 
 /* Modal */
 .modal-card {
@@ -105,7 +105,7 @@ body {
   right: 0;
   top: 0;
   opacity: 0;
-  height: 15px;
+  height: 21px;
   transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
@@ -162,5 +162,16 @@ body {
   .button.is-info {
     border-radius: 3px;
     font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 779px) {
+  .modal.is-active {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: inline-block;
+  }
+  .modal-card {
+    margin-top: 5%;
   }
 }
