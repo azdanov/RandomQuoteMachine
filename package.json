@@ -30,6 +30,8 @@
     "postcss": "^6.0.6",
     "postcss-uncss": "^0.15.0",
     "stylefmt": "^6.0.0",
+    "stylelint": "^8.0.0",
+    "stylelint-config-standard": "^17.0.0",
     "uncss": "^0.15.0"
   },
   "dependencies": {}

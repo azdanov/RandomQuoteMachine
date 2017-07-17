@@ -5,8 +5,8 @@ $family-sans-serif: 'Arimo' #{$family-sans-serif};
 $body-size: 20px;
 
 @import "../node_modules/bulma/bulma";
-/* Modal */
 
+/* Modal */
 .modal-card {
   box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -41,13 +41,13 @@ body {
 
 /* Quotes */
 #quote {
-  padding-right: 60px;
-  text-align: justify
+  text-align: center;
 }
-#theme,
+
+#quoteTheme,
 #quote,
 #author {
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
@@ -63,40 +63,52 @@ body {
 
 /* Quote button */
 #quote-button:focus {
-  box-shadow: 0 0 0.5em rgba(50, 115, 220, .80);
+  box-shadow: 0 0 0.5em rgba(50, 115, 220, 0.8);
 }
 
-/* Copy button */
+/* Main text */
 .modal-card-body {
   position: relative;
   border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
   transition: border 100ms ease-out;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
 }
+
+.modal-card-body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Copy button */
 .highlight-copy {
   outline: 1px solid $red;
   transition: outline 100ms ease-out;
 }
+
 .focus {
-  border: 1px solid $red!important;
+  border: 1px solid $red !important;
 }
 
 #copy {
   user-select: none;
   background: $white;
-  border: solid $grey-lighter;
+  border: solid $white-ter;
   border-width: 0 0 1px 1px;
-  color: $grey;
+  color: $grey-lighter;
   outline: none;
   position: absolute;
   right: 0;
   top: 0;
   opacity: 0;
+  height: 15px;
   transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 #copy:focus {
   border-color: $grey-light;
-  box-shadow: 0 0 0.5em rgba(50, 115, 220, .25);
+  box-shadow: 0 0 0.5em rgba(50, 115, 220, 0.25);
 }
 
 #copy:hover {
@@ -106,17 +118,18 @@ body {
 
 /* Author */
 #author {
+  text-align: center;
   opacity: 0;
   transition: opacity 0.6s cubic-bezier(0.46, 0.03, 0.52, 0.96);
 }
 
 #author::before {
-  content: '– ';
+  content: '- ';
 }
 
 /* Helpers */
 .show {
-  opacity: 1!important;
+  opacity: 1 !important;
 }
 
 /* Media Queries */
@@ -125,5 +138,26 @@ body {
   /* Media icon */
   .modal-card-foot .field .button {
     margin-right: 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #quote {
+    text-align: justify;
+  }
+
+  #author {
+    text-align: start;
+  }
+
+  #author::before {
+    content: '– ';
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .button.is-info {
+    border-radius: 3px;
+    font-size: 1rem;
   }
 }
