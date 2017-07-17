@@ -5,7 +5,6 @@ Made for FreeCodeCamp.
 What I've used:
 
 * [Bulma framework ](http://bulma.io/).
-* [Google Fonts](https://fonts.google.com/).
 * [Gulp](http://gulpjs.com/).
 * [Babel](https://babeljs.io/).
 * [Sass](http://sass-lang.com/).

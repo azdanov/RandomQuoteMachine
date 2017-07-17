@@ -6,6 +6,7 @@ const stylefmt = require('stylefmt');
 const purify = require('gulp-purifycss');
 const browserSync = require('browser-sync').create();
 const babel = require('gulp-babel');
+const csso = require('postcss-csso');
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['js', 'sass'], () => {
@@ -22,6 +23,7 @@ gulp.task('serve', ['js', 'sass'], () => {
 gulp.task('sass', () => {
   const plugins = [
     autoprefixer({ browsers: ['defaults'] }),
+    csso,
     stylefmt,
   ];
   return gulp.src('src/*.scss')
@@ -39,7 +41,6 @@ gulp.task('js', () =>
       presets: ['env'],
     }))
     .pipe(gulp.dest('js'))
-    .pipe(browserSync.stream()),
-);
+    .pipe(browserSync.stream()));
 
 gulp.task('default', ['serve']);
