@@ -1,11 +1,11 @@
 import './styles.scss';
 
-require('babel-polyfill');
-require('custom-event-polyfill');
-require('promise-polyfill');
-require('whatwg-fetch');
+import 'babel-polyfill';
+import 'custom-event-polyfill';
+import 'promise-polyfill';
+import 'whatwg-fetch';
 
-const animationTime = 600;
+const animationTime = 700;
 const changeBackgroundEvent = new CustomEvent('changeBackground');
 const copyButton = document.getElementById('copy');
 const quoteButton = document.getElementById('quote-button');
@@ -44,7 +44,7 @@ function extractQuote() {
 function changeBackground(gradients) {
   const gradient = gradients[randomUpTo(gradients.length)];
   const background = document.getElementsByClassName('modal-background')[0];
-  background.style.opacity = 0;
+  background.style.opacity = 0.3;
   window.setTimeout(() => {
     background.style.background = `-webkit-gradient(linear, left top, left bottom, from(${gradient.colors[0]}), to(${gradient.colors[1]}))`;
     background.style.background = `linear-gradient(${gradient.colors[0]}, ${gradient.colors[1]})`;

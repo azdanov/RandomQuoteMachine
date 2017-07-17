@@ -24,7 +24,7 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                importLoaders: 1,
+                importLoaders: 2,
                 sourceMap: true,
               },
             },
@@ -32,6 +32,9 @@ module.exports = {
               loader: 'postcss-loader',
               options: {
                 sourceMap: true,
+                plugins: [
+                  require('autoprefixer')(),
+                ],
               },
             },
             { loader: 'sass-loader', options: { sourceMap: true } },
@@ -58,14 +61,16 @@ module.exports = {
       // Give paths to parse for rules. These should be absolute!
       paths: [path.join(__dirname, '/index.html')],
       purifyOptions: {
-        whitelist: ['focus', 'show', 'is-loading']
-      }
+        whitelist: ['focus', 'show', 'is-loading'],
+        info: true,
+        minify: true,
+      },
     }),
     new BrowserSyncPlugin({
       // browse to http://localhost:3000/ during development,
       host: 'localhost',
       port: 3000,
-      server: { baseDir: ['./'] }
-    })
+      server: { baseDir: ['./'] },
+    }),
   ],
 };
