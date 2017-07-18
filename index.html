@@ -7,20 +7,39 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Random Quote Machine</title>
   <!-- Ensure browser is up to date -->
-  <script>var $buoop={vs:{i:12,f:-4,o:-4,s:8,c:-4},api:4,reminder:2};function $buo_f(){var e=document.createElement('script');e.src='https://browser-update.org/update.min.js';document.body.appendChild(e);} try{document.addEventListener('DOMContentLoaded',$buo_f,false);} catch(e){window.attachEvent('onload',$buo_f);}</script>
+  <script>var $buoop = { vs: { i: 12, f: -4, o: -4, s: 8, c: -4 }, api: 4, reminder: 2 };
+
+  function $buo_f() {
+    var e = document.createElement('script');
+    e.src = 'https://browser-update.org/update.min.js';
+    document.body.appendChild(e);
+  }
+
+  try {
+    document.addEventListener('DOMContentLoaded', $buo_f, false);
+  } catch (e) {
+    window.attachEvent('onload', $buo_f);
+  }</script>
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
         crossorigin="anonymous">
-  <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAD9/f0AAAAAABcXFwBlZWUA////ABgYGADLy8sA8vLyAFNTUwD09PQA1tbWAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERERERERERERERERREQQREYRERFERFRERBEREUREVEREERERRERUREQRERFERBRERBEREUoRFEERERERQhEUQRERERFEERdBERERETRJEURBERERGEcRFEEREREREREREREREREREREREREREREREREREAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon" />
+  <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAD9/f0AAAAAABcXFwBlZWUA////ABgYGADLy8sA8vLyAFNTUwD09PQA1tbWAAAAAAAAAAAAAAAAAAAAAAAAAAAAERERERERERERERERERERERERERERERERERREQQREYRERFERFRERBEREUREVEREERERRERUREQRERFERBRERBEREUoRFEERERERQhEUQRERERFEERdBERERETRJEURBERERGEcRFEEREREREREREREREREREREREREREREREREREAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        rel="icon"
+        type="image/x-icon"/>
   <link rel="stylesheet" href="css/styles.css">
-  </head>
+</head>
 <body>
 <main class="content">
   <div class="modal is-active">
-    <div class="modal-background"></div>
+    <div class="modal-background">
+    </div>
     <div class="modal-card">
-      <header class="modal-card-head"><p class="modal-card-title"><span id="quote-theme"></span></p>
+      <header class="modal-card-head"><p class="modal-card-title"><span id="quote-theme"></span>
+        <a href="https://azdanov.github.io/" title="Github Page" class="github">
+          <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+      </p>
       </header>
       <section class="modal-card-body">
         <a id="copy" title="Copy" class="button is-small" tabindex="2">Copy</a>
@@ -32,15 +51,15 @@
          --><a id="email"
                class="button is-info is-outlined is-small"
                title="Email"
-               tabindex="5"><span class="icon"><i class="fa fa-envelope"></i><span></span></span></a><!--
+               tabindex="5"><span class="icon"><i class="fa fa-envelope"></i></span></a><!--
          --><a id="twitter"
                class="button is-info is-outlined is-small"
                title="Twitter"
-               tabindex="4"><span class="icon"><i class="fa fa-twitter"></i><span></span></span></a><!--
+               tabindex="4"><span class="icon"><i class="fa fa-twitter"></i></span></a><!--
          --><a id="facebook"
                class="button is-info is-outlined is-small"
                title="Facebook"
-               tabindex="3"><span class="icon"><i class="fa fa-facebook"></i><span></span></span></a>
+               tabindex="3"><span class="icon"><i class="fa fa-facebook"></i></span></a>
         </div>
         <a class="button is-info is-small is-loading"
            id="quote-button"

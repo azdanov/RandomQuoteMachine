@@ -47,7 +47,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['es2015', { 'modules': false }],
+              ['env'],
             ],
           },
         },
@@ -60,7 +60,6 @@ module.exports = {
       paths: [path.join(__dirname, 'index.html')],
       purifyOptions: {
         whitelist: ['focus', 'show', 'is-loading'],
-        info: true,
       },
     }),
     new CssoWebpackPlugin({ comments: 'first-exclamation' }),
@@ -68,6 +67,7 @@ module.exports = {
       host: 'localhost',
       port: 3000,
       server: { baseDir: ['./'] },
+      files: ["css/styles.css", "js/scripts.js", "index.html"],
     }),
   ],
 };

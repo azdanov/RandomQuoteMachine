@@ -45,6 +45,17 @@ body {
   margin-right: 2px;
 }
 
+/* Main text */
+.modal-card-body {
+  position: relative;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  transition: border 100ms ease-out;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+}
+
 /* Quotes */
 #quote {
   text-align: center;
@@ -75,19 +86,43 @@ body {
 }
 
 /* Quote button */
-#quote-button:focus {
+#quote-button:focus,
+#quote-button:hover {
   box-shadow: 0 0 0.5em rgba(50, 115, 220, 0.8);
 }
 
-/* Main text */
-.modal-card-body {
+/* Github button */
+.modal-card-title {
   position: relative;
-  border: 1px solid transparent;
-  display: flex;
-  flex-direction: column;
-  transition: border 100ms ease-out;
-  -ms-overflow-style: none;
-  overflow: -moz-scrollbars-none;
+  height: 30px;
+  $fadeOut: 300ms;
+  a {
+    outline: none;
+    margin-top: 2px;
+    padding: 9px 0;
+    height: 28px;
+    display: inline-block;
+    position: absolute;
+    top: -15px;
+    right: 0;
+  }
+
+  a span {
+    z-index: 1000;
+    color: $text;
+    opacity: 0.1;
+    border-radius: 25%;
+    transition: transform $fadeOut, background-color $fadeOut, color $fadeOut;
+
+  }
+  a:hover span,
+  a:focus span {
+    opacity: 1;
+    outline: none;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
+    background-color: $white-ter;
+    transform: scale(1.2);
+  }
 }
 
 .modal-card-body::-webkit-scrollbar {
@@ -109,6 +144,7 @@ body {
   background: $white;
   border: solid $white-ter;
   border-width: 0 0 1px 1px;
+  border-radius: 0 0 0 2px;
   color: $grey-lighter;
   outline: none;
   position: absolute;
@@ -120,6 +156,7 @@ body {
 }
 
 #copy:focus {
+  color: $text;
   border-color: $grey-light;
   box-shadow: 0 0 0.5em rgba(50, 115, 220, 0.25);
 }
