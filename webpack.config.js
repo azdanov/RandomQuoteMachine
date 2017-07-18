@@ -2,45 +2,42 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require('purifycss-webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 
 const extractSass = new ExtractTextPlugin({
   filename: './css/styles.css',
-  disable: process.env.NODE_ENV === 'development',
 });
 
+
 module.exports = {
-  entry: ['./src/scripts.js'],
+  entry: ['./src/scripts.js', './src/styles.scss'],
   output: {
     filename: './js/scripts.js',
     path: path.resolve(__dirname, './'),
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.scss$/,
         use: extractSass.extract({
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
               options: {
                 importLoaders: 2,
-                sourceMap: true,
               },
             },
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: true,
                 plugins: [
                   require('autoprefixer')(),
                 ],
               },
             },
-            { loader: 'sass-loader', options: { sourceMap: true } },
+            { loader: 'sass-loader' },
           ],
-          // use style-loader in development
-          fallback: 'style-loader',
         }),
       },
       {
@@ -49,7 +46,9 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env'],
+            presets: [
+              ['es2015', { 'modules': false }],
+            ],
           },
         },
       },
@@ -58,16 +57,14 @@ module.exports = {
   plugins: [
     extractSass,
     new PurifyCSSPlugin({
-      // Give paths to parse for rules. These should be absolute!
-      paths: [path.join(__dirname, '/index.html')],
+      paths: [path.join(__dirname, 'index.html')],
       purifyOptions: {
         whitelist: ['focus', 'show', 'is-loading'],
         info: true,
-        minify: true,
       },
     }),
+    new CssoWebpackPlugin({ comments: 'first-exclamation' }),
     new BrowserSyncPlugin({
-      // browse to http://localhost:3000/ during development,
       host: 'localhost',
       port: 3000,
       server: { baseDir: ['./'] },

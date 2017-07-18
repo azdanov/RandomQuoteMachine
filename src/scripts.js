@@ -1,8 +1,6 @@
-import './styles.scss';
-
-import 'babel-polyfill';
+import 'core-js/fn/array/from';
+import 'core-js/fn/promise';
 import 'custom-event-polyfill';
-import 'promise-polyfill';
 import 'whatwg-fetch';
 
 const animationTime = 700;

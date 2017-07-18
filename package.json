@@ -14,11 +14,13 @@
     "babel-loader": "^7.1.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015-native-modules": "^6.9.4",
     "browser-sync": "^2.18.12",
     "browser-sync-webpack-plugin": "^1.2.0",
     "bulma": "^0.4.3",
     "css-loader": "^0.28.4",
     "cssnano": "latest",
+    "csso-webpack-plugin": "^1.0.0-beta.7",
     "custom-event-polyfill": "^0.3.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
@@ -36,15 +38,19 @@
     "postcss-cssnext": "^3.0.2",
     "postcss-csso": "^2.0.0",
     "postcss-loader": "^2.0.6",
+    "postcss-uncss": "^0.15.0",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "stylelint": "^8.0.0",
     "stylelint-config-standard": "^17.0.0",
+    "uncss": "^0.15.0",
+    "uncss-webpack-plugin": "^0.1.1",
     "webpack": "^3.3.0"
   },
   "dependencies": {
+    "core-js": "^2.4.1",
     "promise-polyfill": "^6.0.2",
     "whatwg-fetch": "^2.0.3"
   }
