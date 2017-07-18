@@ -1,7 +1,7 @@
-import 'core-js/fn/array/from';
-import 'core-js/fn/promise';
-import 'custom-event-polyfill';
-import 'whatwg-fetch';
+require('core-js/fn/array/from');
+require('core-js/fn/promise');
+require('custom-event-polyfill');
+require('whatwg-fetch');
 
 const animationTime = 700;
 const changeBackgroundEvent = new CustomEvent('changeBackground');

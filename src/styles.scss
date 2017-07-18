@@ -108,6 +108,7 @@ body {
   }
 
   a span {
+    outline: none;
     z-index: 1000;
     color: $text;
     opacity: 0.1;
