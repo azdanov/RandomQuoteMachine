@@ -171,7 +171,9 @@ function sendToFacebook() {
   if (keyIsNotEnter()) {
     return;
   }
-  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&picture=${encodeURIComponent('https://image.freepik.com/free-icon/conversation-mark-interface-symbol-of-circular-speech-bubble-with-quotes-signs-inside_318-56572.jpg')}&title=Daily+quotes&quote=Get+your+daily+quote&description=${encodeURIComponent(extractQuote())}`);
+  // XSS Protection?
+  let newWnd = window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&picture=${encodeURIComponent('https://image.freepik.com/free-icon/conversation-mark-interface-symbol-of-circular-speech-bubble-with-quotes-signs-inside_318-56572.jpg')}&title=Daily+quotes&quote=Get+your+daily+quote&description=${encodeURIComponent(extractQuote())}`);
+  newWnd.opener = null;
 }
 
 function sendToTweeter() {
@@ -185,15 +187,18 @@ function sendToTweeter() {
   } else {
     url += `Awesome quotes at ${window.location.href}`;
   }
-  window.open(url);
-  window.open(`https://twitter.com/intent/tweet?text=Binge on popular quotes at ${window.location.href}`);
+  // XSS Protection?
+  let newWnd = window.open(url);
+  newWnd.opener = null;
 }
 
 function sendToEmail() {
   if (keyIsNotEnter()) {
     return;
   }
-  window.open(`mailto:?subject=Quote&body=${encodeURI(extractQuote())}`);
+  // XSS Protection?
+  let newWnd = window.open(`mailto:?subject=Quote&body=${encodeURI(extractQuote())}`);
+  newWnd.opener = null;
 }
 
 buttons.forEach(button => button.addEventListener('click', () => event.currentTarget.blur()));
